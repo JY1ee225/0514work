@@ -66,8 +66,8 @@ vis_params_001 = {'min': 0, 'max': num_clusters - 1, 'palette': palette}
 
 Map = geemap.Map()
 Map.add_basemap('HYBRID')
-left_layer = geemap.ee_tile_layer(my_image, vis_params1, 'S2')
-right_layer = geemap.ee_tile_layer(result001, vis_params2, 'wekakMeans classified land cover')
+left_layer = geemap.ee_tile_layer(my_image, vis_params, 'S2')
+right_layer = geemap.ee_tile_layer(result001, vis_params_001, 'wekakMeans')
 Map.centerObject(my_image.geometry(), 10)
 Map.split_map(left_layer, right_layer)
 Map.add_legend(title='Land Cover Type', legend_dict = legend_dict,draggable=False, position = 'bottomright')
