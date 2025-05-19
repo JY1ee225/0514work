@@ -21,13 +21,15 @@ st.title("🌍 使用服務帳戶連接 GEE 的 Streamlit App")
 point = ee.Geometry.Point([120.5583462887228, 24.081653403304525])
 
 # 擷取 Landsat 
-my_image = ee.ImageCollection('COPERNICUS/S2_HARMONIZED')\
+my_image = (
+    ee.ImageCollection('COPERNICUS/S2_HARMONIZED')\
     .filterBounds(point)\
     .filterDate('2021-01-01', '2022-01-01')\
     .sort('CLOUDY_PIXEL_PERCENTAGE')\
     .first()\
     .select('B.*')
-vis_params = {'min':100, 'max': 3500, 'bands': ['B11',  'B8',  'B3']}
+)
+vis_params = {'min':100, 'max': 3500, 'bands': ['B5',  'B4',  'B3']}
 
 training001 = my_image.sample(
     **{
@@ -62,9 +64,11 @@ legend_dict1 = dict(zip(labels, palette))
 # 視覺化參數
 vis_params_001 = {'min': 0, 'max': num_clusters - 1, 'palette': palette}
 
-Map = geemap.Map(center=[24.081653403304525, 120.5583462887228 ], zoom=9)
-left_layer = geemap.ee_tile_layer(my_image, vis_params, "Sentinel-2")
-right_layer = geemap.ee_tile_layer(result001, vis_params_001, "Labelled clusters")
+Map = geemap.Map()
+Map.add_basemap('HYBRID')
+left_layer = geemap.ee_tile_layer(my_image, vis_params1, 'S2')
+right_layer = geemap.ee_tile_layer(result001, vis_params2, 'wekakMeans classified land cover')
+Map.centerObject(my_image.geometry(), 10)
 Map.split_map(left_layer, right_layer)
-Map.add_legend(title='Land Cover Cluster (KMeans)', legend_dict=legend_dict, draggable=False, position='bottomright')
-Map.to_streamlit(height=600)
+Map.add_legend(title='Land Cover Type', legend_dict = legend_dict,draggable=False, position = 'bottomright')
+Map.to_streamlit(height=700)
