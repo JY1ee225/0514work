@@ -59,7 +59,7 @@ palette = [
 ][:num_clusters]  # 擷取前 num_clusters 種顏色
 
 # 建立 legend_dict：將每一個群（label）對應一種顏色
-legend_dict1 = dict(zip(labels, palette))
+legend_dict = dict(zip(labels, palette))
 
 # 視覺化參數
 vis_params_001 = {'min': 0, 'max': num_clusters - 1, 'palette': palette}
@@ -70,5 +70,5 @@ left_layer = geemap.ee_tile_layer(my_image, vis_params, 'S2')
 right_layer = geemap.ee_tile_layer(result001, vis_params_001, 'wekakMeans')
 Map.centerObject(my_image.geometry(), 10)
 Map.split_map(left_layer, right_layer)
-Map.add_legend(title='Land Cover Type', legend_dict1 = legend_dict1,draggable=False, position = 'bottomright')
+Map.add_legend(title='Land Cover Type', legend_dict = legend_dict,draggable=False, position = 'bottomright')
 Map.to_streamlit(height=700)
