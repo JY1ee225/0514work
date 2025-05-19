@@ -42,7 +42,7 @@ training001 = my_image.sample(
 )
 
 num_clusters = 5
-clusterer_KMeans = ee.Clusterer.wekaKMeans(nClusters=n_clusters).train(training001)
+clusterer_KMeans = ee.Clusterer.wekaKMeans(nClusters=num_clusters).train(training001)
 result001 = my_image.cluster(clusterer_KMeans)
 
 
