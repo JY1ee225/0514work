@@ -2,3 +2,5 @@ geemap
 streamlit
 earthengine-api
 google-auth
+pandas
+leafmap
