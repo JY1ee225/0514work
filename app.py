@@ -1,10 +1,13 @@
 import streamlit as st
 from datetime import date
 
+#wide使螢幕使用到最寬的範圍 
 st.set_page_config(layout="wide", page_title="這是Streamlit App第二次練習！")
 
 st.title("應用程式主頁")
 
+#三個雙引號內都是字串
+#超連結【文字】(連結)
 st.markdown(
     """
     This multipage app template demonstrates various interactive web apps created using [streamlit](https://streamlit.io), [GEE](https://earthengine.google.com/), 
@@ -53,6 +56,7 @@ st.success(f"目前選擇的日期區間為：{start_date} 到 {end_date}")
 
 st.title("利用擴充器示範")
 
+#st.image("網址")或是上傳資料然後打名稱
 with st.expander("展示gif檔"):
     st.image("pucallpa.gif")
 
