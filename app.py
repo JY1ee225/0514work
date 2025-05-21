@@ -58,7 +58,7 @@ st.title("利用擴充器示範")
 
 #st.image("網址")或是上傳資料然後打名稱
 with st.expander("展示gif檔"):
-    st.image("pucallpa.gif")
+    st.image("關西機場.gif")
 
 with st.expander("播放mp4檔"):
     video_file = open("pucallpa.mp4", "rb")  # "rb"指的是讀取二進位檔案（圖片、影片）
