@@ -42,12 +42,13 @@ ndvi_2010 = get_ndvi(2010)
 
 ndvi_vis = {'min': 0, 'max': 1, 'palette': ['white', 'green']}
 
-Map = geemap.Map(center=[23.5, 120.85], zoom=10)
+left = geemap.ee_tile_layer(ndvi_1990, ndvi_vis, 'NDVI 1990')
+right = geemap.ee_tile_layer(ndvi_2010, ndvi_vis, 'NDVI 2010')
+
 Map.split_map(
-    left_layer=ndvi_1990,
-    right_layer=ndvi_2010,
+    left_layer=left,
+    right_layer=right,
     left_label="NDVI 1990",
-    right_label="NDVI 2010",
-    vis_params=ndvi_vis
+    right_label="NDVI 2010"
 )
 Map.to_streamlit(width=1200, height=600)
