@@ -24,7 +24,7 @@ markdown = """
 st.markdown(markdown)
 
 with st.expander("阿里山森林遊樂區"):
-    st.image("關西機場.gif")
+    st.image("ali-img-2-md.jpg")
 
 
 
