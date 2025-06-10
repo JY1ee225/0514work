@@ -17,40 +17,37 @@ ee.Initialize(credentials)
 st.set_page_config(layout="wide")
 st.title("🌍阿里山地區的森林覆蓋狀況")
 
-# 地理區域
-alishan = ee.Geometry.Rectangle(120.67890712750258,23.56504921800958,120.85503169704448,23.486982449033867)
+if not ee.data._initialized:
+    ee.Authenticate()
+    ee.Initialize()
 
-# 計算 NDVI 的函數，使用 Collection 2
-def get_ndvi_landsat5_c2(year):
-    start_date = f'{year}-01-01'
-    end_date = f'{year}-12-31'
+alishan = ee.Geometry.Rectangle([120.7, 23.45, 121.0, 23.6])
 
+def get_ndvi(year):
     collection = ee.ImageCollection('LANDSAT/LT05/C02/T1_L2') \
-        .filterDate(start_date, end_date) \
+        .filterDate(f'{year}-01-01', f'{year}-12-31') \
         .filterBounds(alishan) \
-        .filter(ee.Filter.lt('CLOUD_COVER', 30)) \
-        .median()
+        .filter(ee.Filter.lt('CLOUD_COVER', 50))
     
-    # Collection 2 的波段：SR_B4 = NIR, SR_B3 = RED
-    ndvi = collection.normalizedDifference(['SR_B4', 'SR_B3']).rename('NDVI')
-    return ndvi
+    if collection.size().getInfo() == 0:
+        st.warning(f"{year} 年無可用資料")
+        return ee.Image().rename('NDVI')
 
-# 計算 NDVI 1990 和 2010
-ndvi_1990 = get_ndvi_landsat5_c2(1990)
-ndvi_2010 = get_ndvi_landsat5_c2(2010)
+    image = collection.median()
+    ndvi = image.normalizedDifference(['SR_B4', 'SR_B3']).rename('NDVI')
+    return ndvi.clip(alishan)
 
-# NDVI 顯示樣式
-ndvi_vis = {
-    'min': 0.0,
-    'max': 1.0,
-    'palette': ['white', 'green']
-}
+ndvi_1990 = get_ndvi(1990)
+ndvi_2010 = get_ndvi(2010)
 
-# Split Map（左：1990，右：2010）
-left_layer = geemap.ee_tile_layer(ndvi_1990.clip(alishan), ndvi_vis, 'NDVI 1990')
-right_layer = geemap.ee_tile_layer(ndvi_2010.clip(alishan), ndvi_vis, 'NDVI 2010')
+ndvi_vis = {'min': 0, 'max': 1, 'palette': ['white', 'green']}
 
-# 建立 split map
-Map = geemap.Map(center=[23.52, 120.76], zoom=13)
-Map.split_map(left_layer, right_layer)
-Map
+Map = geemap.Map(center=[23.5, 120.85], zoom=10)
+Map.split_map(
+    left_layer=ndvi_1990,
+    right_layer=ndvi_2010,
+    left_label="NDVI 1990",
+    right_label="NDVI 2010",
+    vis_params=ndvi_vis
+)
+Map.to_streamlit(width=1200, height=600)
