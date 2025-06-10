@@ -2,16 +2,15 @@ import streamlit as st
 from datetime import date
 
 #wide使螢幕使用到最寬的範圍 
-st.set_page_config(layout="wide", page_title="這是Streamlit App第二次練習！")
+st.set_page_config(layout="wide", page_title="阿里山地區土地使用及災害")
 
-st.title("應用程式主頁")
+st.title("阿里山地區土地使用及災害")
 
 #三個雙引號內都是字串
 #超連結【文字】(連結)
 st.markdown(
     """
-    This multipage app template demonstrates various interactive web apps created using [streamlit](https://streamlit.io), [GEE](https://earthengine.google.com/), 
-    [geemap](https://leafmap.org) and [leafmap](https://leafmap.org). 
+    本app會討論阿里山地區的土地使用以及災害後地景變化還有微微的觀光
     """
 )
 
