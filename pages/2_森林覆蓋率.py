@@ -60,7 +60,7 @@ left_layer = geemap.ee_tile_layer(ndvi_1990, ndvi_vis, 'NDVI 1990')
 right_layer = geemap.ee_tile_layer(ndvi_2010, ndvi_vis, 'NDVI 2010')
 
 # 建立地圖
-Map = geemap.Map(center=[23.5, 120.85], zoom=10)
+Map = geemap.Map(center=[23.5, 120.76], zoom=13)
 Map.split_map(
     left_layer=left_layer,
     right_layer=right_layer,
