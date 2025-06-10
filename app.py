@@ -14,18 +14,17 @@ st.markdown(
     """
 )
 
-st.header("Instructions")
+st.header("阿里山森林遊樂區簡介")
 
 markdown = """
-1. You can use it as a template for your own project.
-2. Customize the sidebar by changing the sidebar text and logo in each Python file.
-3. Find your favorite emoji from https://emojipedia.org.
-4. Add a new app to the `pages/` directory with an emoji in the file name, e.g., `1_🚀_Chart.py`.
+阿里山國家風景區包括番路、竹崎、梅山、阿里山共四鄉，如葉脈般的交通路網蔓延群山，引領旅人穿梭在層疊的山林綠意，驚豔日出流雲之美、品味細緻茶園風光，還有鄒族原鄉人文，都是阿里山不容錯過的遊憩焦點！
 
 """
 
 st.markdown(markdown)
 
+with st.expander("阿里山森林遊樂區"):
+    st.image("關西機場.gif")
 
 
 
