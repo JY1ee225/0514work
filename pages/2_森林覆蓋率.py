@@ -3,12 +3,6 @@ import ee
 from google.oauth2 import service_account
 import geemap.foliumap as geemap
 
-st.markdown(
-    """
-    -白色（white） 表示 NDVI 值較低 的區域（接近 0），通常代表：無植被或植被稀疏區域（例如城市、裸地、岩石、乾燥土壤）、水體（有時 NDVI 值甚至為負）
-    -綠色（green） 表示 NDVI 值較高 的區域（接近 1），通常代表：濃密健康的植被（例如森林、農作物）NDVI 值愈高，表示植物光合作用愈旺盛、葉綠素含量高
-    """
-)
 
 # 從 Streamlit Secrets 讀取 GEE 服務帳戶金鑰 JSON
 service_account_info = st.secrets["GEE_SERVICE_ACCOUNT"]
